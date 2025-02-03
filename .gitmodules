@@ -1,0 +1,3 @@
+[submodule "source/drivers/invn-soniclib"]
+	path = source/drivers/invn-soniclib
+	url = https://github.com/tdk-invn-oss/ultrasonic.soniclib
