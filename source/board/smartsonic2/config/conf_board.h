@@ -1,0 +1,336 @@
+/**
+ * \file
+ *
+ * \brief Board configuration.
+ *
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ *
+ * \asf_license_start
+ *
+ * \page License
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * 3. The name of Atmel may not be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * 4. This software may only be redistributed and used in connection with an
+ *    Atmel microcontroller product.
+ *
+ * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+ * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * \asf_license_stop
+ *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
+
+#include "pio.h"
+#include "io_expander.h"
+
+#ifndef CONF_BOARD_H_INCLUDED
+#define CONF_BOARD_H_INCLUDED
+
+#define I2C_CONTROL (TWI2)
+#define I2C_CONTROL_CLK (400000) /* 400KHz */
+#define I2C_CONTROL_FLEXCOM (FLEXCOM2) /* TWI2 */
+#define I2C_CONTROL_FLEXCOM_IRQ (FLEXCOM2_IRQn)
+#define I2C_CONTROL_PINS_FLAGS (IOPORT_MODE_MUX_A)
+
+#define I2C_DB (TWI0)
+#define I2C_DB_CLK (400000) /* 400KHz */
+#define I2C_DB_FLEXCOM (FLEXCOM0) /* TWI0 */
+#define I2C_DB_FLEXCOM_IRQ (FLEXCOM0_IRQn)
+#define I2C_DB_PINS_FLAGS (IOPORT_MODE_MUX_A)
+
+#define SPI_ICU (SPI5)
+#define SPI_ICU_FLEXCOM (FLEXCOM5) /* SPI5 */
+#define SPI_ICU_FLEXCOM_IRQ (FLEXCOM5_IRQn)
+#define SPI_ICU_PINS_FLAGS (IOPORT_MODE_MUX_A)
+/* SPI Configuration */
+#define SPI_ICU_CFG_CPOL (1)
+#define SPI_ICU_CFG_CPHA (0)
+#define SPI_ICU_CFG_BITS_PER_TRANSFER (SPI_CSR_BITS_8_BIT)
+#define SPI_ICU_CFG_SPEED (11e6)
+/* Delay before SPCK. */
+#define SPI_ICU_CFG_DELAY_BS (0)//(0x40) /* TODO : value ?? */
+/* Delay between consecutive transfers. */
+#define SPI_ICU_CFG_DELAY_BCT (0)//(0x01) /* TODO : value ?? */
+
+#define SPI_EVB (SPI7)
+#define SPI_EVB_FLEXCOM (FLEXCOM7) /* SPI7 */
+#define SPI_EVB_FLEXCOM_IRQ (FLEXCOM7_IRQn)
+#define SPI_EVB_PINS_FLAGS (IOPORT_MODE_MUX_B)
+/* SPI Configuration */
+#define SPI_EVB_CFG_CPOL (1)
+#define SPI_EVB_CFG_CPHA (0)
+#define SPI_EVB_CFG_BITS_PER_TRANSFER (SPI_CSR_BITS_8_BIT)
+#define SPI_EVB_CFG_SPEED (6e6)
+/* Delay before SPCK. */
+#define SPI_EVB_CFG_DELAY_BS (0x40) /* TODO : value ?? */
+/* Delay between consecutive transfers. */
+#define SPI_EVB_CFG_DELAY_BCT (0x01) /* TODO : value ?? */
+
+#define USART_CONSOLE (USART4)
+#define USART_CONSOLE_FLEXCOM (FLEXCOM4)
+#define USART_CONSOLE_FLEXCOM_ID (ID_FLEXCOM4)
+#define USART_CONSOLE_PORT IOPORT_PIOB
+#define USART_CONSOLE_PINS (PIO_PB10A_TXD4| PIO_PB11A_RXD4)
+#define USART_CONSOLE_PINS_FLAGS (IOPORT_MODE_MUX_A)
+
+#define USART_CONSOLE_BAUDRATE     921600
+#define USART_CONSOLE_CHAR_LENGTH  US_MR_CHRL_8_BIT
+#define USART_CONSOLE_PARITY       US_MR_PAR_NO
+#define USART_CONSOLE_STOP_BITS    US_MR_NBSTOP_1_BIT
+
+// /*External Interrupt setup for PA30 Motion Sensor INT*/
+// #define PIN_EXT_MotionINT_MASK  PIO_PA30
+
+// /*External Interrupt setup for Sync measurement INT*/
+// #define PIN_EXT_SyncMeasINT_MASK    PIO_PA20
+// #define PIN_SyncMeas_INTERRUPT_ATTR (PIO_DEFAULT | PIO_IT_EDGE)
+
+#define I2C_CONTROL_SCL IOPORT_CREATE_PIN(PIOA, 5)
+#define I2C_CONTROL_SDA IOPORT_CREATE_PIN(PIOA, 6)
+#define I2C_CONTROL_PORT     PIOA
+#define I2C_CONTROL_SCL_MASK PIO_PA5
+#define I2C_CONTROL_SDA_MASK PIO_PA6
+#define I2C_CONTROL_PINS_MASK (I2C_CONTROL_SCL_MASK | I2C_CONTROL_SDA_MASK)
+
+#define I2C_DB_SCL IOPORT_CREATE_PIN(PIOA, 9)
+#define I2C_DB_SDA IOPORT_CREATE_PIN(PIOA, 10)
+#define I2C_DB_PORT     PIOA
+#define I2C_DB_SCL_MASK PIO_PA9
+#define I2C_DB_SDA_MASK PIO_PA10
+#define I2C_DB_PINS_MASK (I2C_DB_SCL_MASK | I2C_DB_SDA_MASK)
+
+#define ICUx_INT_PINS_PORT IOPORT_PIOA
+#define ICUx_INT1_0 IOPORT_CREATE_PIN(PIOA, 0)
+#define ICUx_INT1_1 IOPORT_CREATE_PIN(PIOA, 1)
+#define ICUx_INT1_2 IOPORT_CREATE_PIN(PIOA, 2)
+#define ICUx_INT1_3 IOPORT_CREATE_PIN(PIOA, 3)
+#define ICUx_INT2   IOPORT_CREATE_PIN(PIOA, 4)
+
+#define CHx01_INT_PINS_PORT IOPORT_PIOA
+#define CHx01_INT_DIR IOPORT_CREATE_PIN(PIOA, 25)
+#define CHx01_INT0    IOPORT_CREATE_PIN(PIOA, 15)
+#define CHx01_INT1    IOPORT_CREATE_PIN(PIOA, 16)
+#define CHx01_INT2    IOPORT_CREATE_PIN(PIOA, 23)
+#define CHx01_INT3    IOPORT_CREATE_PIN(PIOA, 24)
+
+#define ICUx_INT_PORT   PIOA
+#define ICUx_INT_PORT_ID ID_PIOA
+#define ICUx_INT_PINS (1 << ICUx_INT1_0 |\
+						 1 << ICUx_INT1_1 |\
+						 1 << ICUx_INT1_2 |\
+						 1 << ICUx_INT1_3 |\
+						 1 << ICUx_INT2)
+#define ICUx_INT1_0_MASK PIO_PA0
+#define ICUx_INT1_1_MASK PIO_PA1
+#define ICUx_INT1_2_MASK PIO_PA2
+#define ICUx_INT1_3_MASK PIO_PA3
+#define ICUx_INT2_MASK   PIO_PA4
+#define ICUx_INT_MASKS (ICUx_INT1_0_MASK | ICUx_INT1_1_MASK |\
+						ICUx_INT1_2_MASK | ICUx_INT1_3_MASK |\
+						ICUx_INT2_MASK)
+#define ICUx_INT_PIN_CONFIG (PIO_DEFAULT | PIO_IT_FALL_EDGE)
+#define ICUx_INT_PIN_IRQ    PIOA_IRQn
+
+#define CHx01_INT_PORT  PIOA
+#define CHx01_INT_PORT_ID ID_PIOA
+#define CHx01_INT0_MASK PIO_PA15
+#define CHx01_INT1_MASK PIO_PA16
+#define CHx01_INT2_MASK PIO_PA23
+#define CHx01_INT3_MASK PIO_PA24
+#define CHx01_INT_MASKS (CHx01_INT0_MASK | CHx01_INT1_MASK |\
+						CHx01_INT2_MASK | CHx01_INT3_MASK)
+#define CHx01_INT_PIN_CONFIG (PIO_DEFAULT | PIO_IT_RISE_EDGE)
+#define CHx01_INT_PIN_IRQ    PIOA_IRQn
+
+#define ICUx_MUTCLK IOPORT_CREATE_PIN(PIOA, 30)
+#define ICUx_MUTCLK_PORT PIOA
+#define ICUx_MUTCLK_PORT_ID ID_PIOA
+#define ICUx_MUTCLK_MASK PIO_PA30
+#define ICUx_MUTCLK_PIN_CONFIG (PIO_DEFAULT)
+
+#define SPI_ICU_MOSI (PIO_PA13_IDX)
+#define SPI_ICU_MISO (PIO_PA12_IDX)
+#define SPI_ICU_SCLK (PIO_PA14_IDX)
+
+#define SPI_ICU_CSB0 IOPORT_CREATE_PIN(PIOB, 12)
+#define SPI_ICU_CSB1 IOPORT_CREATE_PIN(PIOB, 13)
+#define SPI_ICU_CSB2 IOPORT_CREATE_PIN(PIOB, 14)
+#define SPI_ICU_CSB3 IOPORT_CREATE_PIN(PIOB, 15)
+
+#define SPI_EVB_MOSI (PIO_PA28_IDX)
+#define SPI_EVB_MISO (PIO_PA27_IDX)
+#define SPI_EVB_SCLK (PIO_PA29_IDX)
+
+#define SPI_EVB_CSB IOPORT_CREATE_PIN(PIOA, 26)
+
+#define USART_CONSOLE_TXD IOPORT_CREATE_PIN(PIOB, 10)
+#define USART_CONSOLE_RXD IOPORT_CREATE_PIN(PIOB, 11)
+
+#define IO_EXP_INT            IOPORT_CREATE_PIN(PIOA, 31)
+#define IO_EXP_INT_PORT       PIOA
+#define IO_EXP_INT_PORT_ID    ID_PIOA
+#define IO_EXP_INT_PINS       (1 << IO_EXP_INT)
+#define IO_EXP_INT_MASK       PIO_PA31
+#define IO_EXP_INT_PIN_CONFIG (PIO_DEFAULT | PIO_IT_FALL_EDGE)
+#define IO_EXP_INT_PIN_IRQ    PIOA_IRQn
+
+#define DBG0 IOPORT_CREATE_PIN(PIOB, 5)
+#define DBG1 IOPORT_CREATE_PIN(PIOB, 4)
+
+#define EVB_INT1 IOPORT_CREATE_PIN(PIOB, 9)
+#define EVB_INT2 IOPORT_CREATE_PIN(PIOB, 8)
+#define EVB_INT_PORT PIOB
+#define EVB_INT_PORT_ID ID_PIOB
+#define EVB_INT1_MASK PIO_PB9
+#define EVB_INT2_MASK PIO_PB8
+#define EVB_INT_MASKS (EVB_INT1_MASK | EVB_INT2_MASK)
+#define EVB_INT_PINS_CONFIG (PIO_DEFAULT | PIO_IT_RISE_EDGE)
+#define EVB_INT_PINS_IRQ PIOB_IRQn
+#define EVB_INT_PINS (1 << EVB_INT1 |\
+					 1 << EVB_INT2)
+
+#define USER_BUTTON IOPORT_CREATE_PIN(PIOA, 11)
+#define USER_BUTTON_PORT PIOA
+#define USER_BUTTON_PORT_ID ID_PIOA
+#define USER_BUTTON_MASK PIO_PA11
+#define USER_BUTTON_PIN_CONFIG (PIO_DEFAULT | PIO_IT_FALL_EDGE)
+
+/* PB4, 5 and 12 are used as system pins at init */
+#define DBG0_SYSIO_MASK CCFG_SYSIO_SYSIO5
+#define DBG1_SYSIO_MASK CCFG_SYSIO_SYSIO4
+#define SPI_ICU_CSB0_SYSIO_MASK CCFG_SYSIO_SYSIO12
+
+#define ADC_CURRENT_SENSE_CHX01_0_PIN IOPORT_CREATE_PIN(PIOA, 17)
+#define ADC_CURRENT_SENSE_CHX01_1_PIN IOPORT_CREATE_PIN(PIOA, 18)
+#define ADC_CURRENT_SENSE_CHX01_3_PIN IOPORT_CREATE_PIN(PIOA, 19)
+#define ADC_CURRENT_SENSE_ICU_0_PIN   IOPORT_CREATE_PIN(PIOA, 20)
+#define ADC_CURRENT_SENSE_ICU_1_PIN   IOPORT_CREATE_PIN(PIOB, 0)
+#define ADC_CURRENT_SENSE_ICU_3_PIN   IOPORT_CREATE_PIN(PIOB, 1)
+#define ADC_CURRENT_SENSE_CHX01_2_PIN IOPORT_CREATE_PIN(PIOB, 2)
+#define ADC_CURRENT_SENSE_ICU_2_PIN   IOPORT_CREATE_PIN(PIOB, 3)
+
+#define PCA9535_EXPA_I2C_ADDRESS 0x20 /* 7-bits address */
+#define PCA9535_EXPB_I2C_ADDRESS 0x21 /* 7-bits address */
+
+#define IO_EXPA_LSB_EN_1V8      (IO_EXP_PIN_P0)
+#define IO_EXPA_LSB_LED1        (IO_EXP_PIN_P1)
+#define IO_EXPA_LSB_LED2        (IO_EXP_PIN_P2)
+#define IO_EXPA_LSB_LED3        (IO_EXP_PIN_P3)
+#define IO_EXPA_LSB_LED4        (IO_EXP_PIN_P4)
+#define IO_EXPA_LSB_LED5        (IO_EXP_PIN_P5)
+#define IO_EXPA_LSB_LED6        (IO_EXP_PIN_P6)
+#define IO_EXPA_LSB_LED7        (IO_EXP_PIN_P7)
+#define IO_EXPA_MSB_LED8        (IO_EXP_PIN_P0)
+#define IO_EXPA_MSB_OSC_CTL     (IO_EXP_PIN_P1)
+#define IO_EXPA_MSB_CHX01_RST   (IO_EXP_PIN_P2)
+#define IO_EXPA_MSB_CHX01_PROG0 (IO_EXP_PIN_P3)
+#define IO_EXPA_MSB_CHX01_PROG1 (IO_EXP_PIN_P4)
+#define IO_EXPA_MSB_CHX01_PROG2 (IO_EXP_PIN_P5)
+#define IO_EXPA_MSB_CHX01_PROG3 (IO_EXP_PIN_P6)
+#define IO_EXPA_MSB_EVB_RESETB  (IO_EXP_PIN_P7)
+
+#define IO_EXPB_MSB_EVB_BUS_CTRL_SW (IO_EXP_PIN_P5)
+#define IO_EXPB_MSB_LED_GREEN (IO_EXP_PIN_P6)
+#define IO_EXPB_MSB_LED_RED (IO_EXP_PIN_P7)
+
+#define IO_EXPA_LSB_PINS_DIR ((IO_EXP_OUT_DIR << IO_EXP_PIN_P0_POS) |\
+							(IO_EXP_OUT_DIR << IO_EXP_PIN_P1_POS) |\
+							(IO_EXP_OUT_DIR << IO_EXP_PIN_P2_POS) |\
+							(IO_EXP_OUT_DIR << IO_EXP_PIN_P3_POS) |\
+							(IO_EXP_OUT_DIR << IO_EXP_PIN_P4_POS) |\
+							(IO_EXP_OUT_DIR << IO_EXP_PIN_P5_POS) |\
+							(IO_EXP_OUT_DIR << IO_EXP_PIN_P6_POS) |\
+							(IO_EXP_OUT_DIR << IO_EXP_PIN_P7_POS))
+
+#define IO_EXPA_MSB_PINS_DIR ((IO_EXP_OUT_DIR << IO_EXP_PIN_P0_POS) |\
+							(IO_EXP_OUT_DIR << IO_EXP_PIN_P1_POS) |\
+							(IO_EXP_OUT_DIR << IO_EXP_PIN_P2_POS) |\
+							(IO_EXP_OUT_DIR << IO_EXP_PIN_P3_POS) |\
+							(IO_EXP_OUT_DIR << IO_EXP_PIN_P4_POS) |\
+							(IO_EXP_OUT_DIR << IO_EXP_PIN_P5_POS) |\
+							(IO_EXP_OUT_DIR << IO_EXP_PIN_P6_POS) |\
+							(IO_EXP_OUT_DIR << IO_EXP_PIN_P7_POS))
+
+#define IO_EXPB_LSB_PINS_DIR ((IO_EXP_IN_DIR << IO_EXP_PIN_P0_POS) |\
+							(IO_EXP_IN_DIR << IO_EXP_PIN_P1_POS) |\
+							(IO_EXP_IN_DIR << IO_EXP_PIN_P2_POS) |\
+							(IO_EXP_IN_DIR << IO_EXP_PIN_P3_POS) |\
+							(IO_EXP_IN_DIR << IO_EXP_PIN_P4_POS) |\
+							(IO_EXP_IN_DIR << IO_EXP_PIN_P5_POS) |\
+							(IO_EXP_IN_DIR << IO_EXP_PIN_P6_POS) |\
+							(IO_EXP_IN_DIR << IO_EXP_PIN_P7_POS))
+
+#define IO_EXPB_MSB_PINS_DIR ((IO_EXP_IN_DIR << IO_EXP_PIN_P0_POS) |\
+							(IO_EXP_IN_DIR << IO_EXP_PIN_P1_POS) |\
+							(IO_EXP_IN_DIR << IO_EXP_PIN_P2_POS) |\
+							(IO_EXP_IN_DIR << IO_EXP_PIN_P3_POS) |\
+							(IO_EXP_IN_DIR << IO_EXP_PIN_P4_POS) |\
+							(IO_EXP_OUT_DIR << IO_EXP_PIN_P5_POS) |\
+							(IO_EXP_OUT_DIR << IO_EXP_PIN_P6_POS) |\
+							(IO_EXP_OUT_DIR << IO_EXP_PIN_P7_POS))
+
+/* EN_1V8 = 1 LED1..7 = OFF */
+#define IO_EXPA_LSB_PINS_DFT_VAL ((IO_EXP_SET_LEVEL << IO_EXP_PIN_P0_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P1_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P2_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P3_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P4_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P5_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P6_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P7_POS))
+/* LED8 = OFF OSC_CTL = 0 CHx01_RST = 1 CHx01_PROG0..3 = 0 EVB_RESETB = 0 */
+#define IO_EXPA_MSB_PINS_DFT_VAL ((IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P0_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P1_POS) |\
+							(IO_EXP_SET_LEVEL << IO_EXP_PIN_P2_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P3_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P4_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P5_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P6_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P7_POS))
+/* All pins in (NC) */
+#define IO_EXPB_LSB_PINS_DFT_VAL ((IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P0_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P1_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P2_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P3_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P4_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P5_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P6_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P7_POS))
+/* Pins in x5 (NC) EVB_BUS_CTRL_SW = 0 (SPI) LED_GREEN/RED = OFF */
+#define IO_EXPB_MSB_PINS_DFT_VAL ((IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P0_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P1_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P2_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P3_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P4_POS) |\
+							(IO_EXP_CLEAR_LEVEL << IO_EXP_PIN_P5_POS) |\
+							(IO_EXP_SET_LEVEL << IO_EXP_PIN_P6_POS) |\
+							(IO_EXP_SET_LEVEL << IO_EXP_PIN_P7_POS))
+
+#define ICP10111_I2C_ADDRESS 0x63 /* 7-bits address */
+#define SHT40_I2C_ADDRESS    0x44 /* 7-bits address */
+
+#endif /* CONF_BOARD_H_INCLUDED */
